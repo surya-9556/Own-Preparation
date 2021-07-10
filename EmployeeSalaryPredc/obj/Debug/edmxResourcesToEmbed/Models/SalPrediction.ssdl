@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SalaryPredictionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Driver">
+    <Key>
+      <PropertyRef Name="DriverId" />
+    </Key>
+    <Property Name="DriverId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DriverName" Type="nvarchar" MaxLength="200" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="AddressId" />
+    </Key>
+    <Property Name="AddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" />
+    <Property Name="Address" Type="nvarchar" MaxLength="200" />
+    <Property Name="City" Type="nvarchar" MaxLength="100" />
+    <Property Name="State" Type="nvarchar" MaxLength="100" />
+    <Property Name="PinCode" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmpId" />
+    </Key>
+    <Property Name="EmpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeName" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="BirthDate" Type="date" />
+    <Property Name="HireDate" Type="date" />
+    <Property Name="Gender" Type="nchar" MaxLength="10" />
+    <Property Name="MaritalStatus" Type="nchar" MaxLength="10" />
+    <Property Name="Email" Type="nvarchar" MaxLength="550" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Salary">
+    <Key>
+      <PropertyRef Name="SalaryId" />
+    </Key>
+    <Property Name="SalaryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" />
+    <Property Name="BasicSalary" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="HRA" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="DA" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Travel" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Vechile">
+    <Key>
+      <PropertyRef Name="VechileId" />
+    </Key>
+    <Property Name="VechileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" />
+    <Property Name="AddressId" Type="int" />
+    <Property Name="DriverId" Type="int" />
+    <Property Name="VechileName" Type="nvarchar" MaxLength="100" />
+    <Property Name="VechileRoute" Type="nvarchar" MaxLength="100" />
+    <Property Name="VechileNumber" Type="nvarchar" MaxLength="100" />
+    <Property Name="Capacity" Type="int" />
+  </EntityType>
+  <EntityType Name="Regestration">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UsersId" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="550" Nullable="false" />
+    <Property Name="PassWord" Type="nvarchar" MaxLength="550" Nullable="false" />
+    <Property Name="ConformPassword" Type="nvarchar" MaxLength="550" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Role" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Password" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SalaryPrediction.Employee.EmployeeSal' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="EmployeeSal">
+    <Key>
+      <PropertyRef Name="EmployeeName" />
+    </Key>
+    <Property Name="EmployeeName" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="total_salary" Type="decimal" Precision="38" Scale="2" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SalaryPrediction.Employee.EmpVech' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="EmpVech">
+    <Key>
+      <PropertyRef Name="EmpId" />
+      <PropertyRef Name="EmployeeName" />
+    </Key>
+    <Property Name="EmpId" Type="int" Nullable="false" />
+    <Property Name="EmployeeName" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="VechileName" Type="nvarchar" MaxLength="100" />
+    <Property Name="VechileRoute" Type="nvarchar" MaxLength="100" />
+    <Property Name="DriverName" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <Association Name="FK_Address">
+    <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+    <End Role="Vechile" Type="Self.Vechile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="AddressId" />
+      </Principal>
+      <Dependent Role="Vechile">
+        <PropertyRef Name="AddressId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Driver">
+    <End Role="Driver" Type="Self.Driver" Multiplicity="0..1" />
+    <End Role="Vechile" Type="Self.Vechile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Driver">
+        <PropertyRef Name="DriverId" />
+      </Principal>
+      <Dependent Role="Vechile">
+        <PropertyRef Name="DriverId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Emp">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Vechile" Type="Self.Vechile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpId" />
+      </Principal>
+      <Dependent Role="Vechile">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Address" Type="Self.Address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpId" />
+      </Principal>
+      <Dependent Role="Address">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employees">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Salary" Type="Self.Salary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpId" />
+      </Principal>
+      <Dependent Role="Salary">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolesOfUs">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Roles" Type="Self.Roles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Roles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Regestration" Type="Self.Regestration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Regestration">
+        <PropertyRef Name="UsersId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="Crud" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Employee">
+    <Parameter Name="EmpId" Type="int" Mode="In" />
+    <Parameter Name="EmployeeName" Type="nvarchar" Mode="In" />
+    <Parameter Name="BirthDate" Type="date" Mode="In" />
+    <Parameter Name="HireDate" Type="date" Mode="In" />
+    <Parameter Name="Gender" Type="nchar" Mode="In" />
+    <Parameter Name="MaritalStatus" Type="nchar" Mode="In" />
+    <Parameter Name="Email" Type="nvarchar" Mode="In" />
+    <Parameter Name="PhoneNumber" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Choice" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="Salary_predict" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Employee">
+    <Parameter Name="EmpId" Type="int" Mode="In" />
+    <Parameter Name="Tax" Type="int" Mode="InOut" />
+  </Function>
+  <EntityContainer Name="SalaryPredictionModelStoreContainer">
+    <EntitySet Name="Driver" EntityType="Self.Driver" Schema="Driver" store:Type="Tables" />
+    <EntitySet Name="Address" EntityType="Self.Address" Schema="Employee" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="Employee" store:Type="Tables" />
+    <EntitySet Name="Salary" EntityType="Self.Salary" Schema="Employee" store:Type="Tables" />
+    <EntitySet Name="Vechile" EntityType="Self.Vechile" Schema="Employee" store:Type="Tables" />
+    <EntitySet Name="Regestration" EntityType="Self.Regestration" Schema="Logins" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="Logins" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="Logins" store:Type="Tables" />
+    <EntitySet Name="EmployeeSal" EntityType="Self.EmployeeSal" store:Type="Views" store:Schema="Employee">
+      <DefiningQuery>SELECT 
+    [EmployeeSal].[EmployeeName] AS [EmployeeName], 
+    [EmployeeSal].[total_salary] AS [total_salary]
+    FROM [Employee].[EmployeeSal] AS [EmployeeSal]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="EmpVech" EntityType="Self.EmpVech" store:Type="Views" store:Schema="Employee">
+      <DefiningQuery>SELECT 
+    [EmpVech].[EmpId] AS [EmpId], 
+    [EmpVech].[EmployeeName] AS [EmployeeName], 
+    [EmpVech].[VechileName] AS [VechileName], 
+    [EmpVech].[VechileRoute] AS [VechileRoute], 
+    [EmpVech].[DriverName] AS [DriverName]
+    FROM [Employee].[EmpVech] AS [EmpVech]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Address" Association="Self.FK_Address">
+      <End Role="Address" EntitySet="Address" />
+      <End Role="Vechile" EntitySet="Vechile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Driver" Association="Self.FK_Driver">
+      <End Role="Driver" EntitySet="Driver" />
+      <End Role="Vechile" EntitySet="Vechile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Emp" Association="Self.FK_Emp">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Vechile" EntitySet="Vechile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee" Association="Self.FK_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Address" EntitySet="Address" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employees" Association="Self.FK_Employees">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Salary" EntitySet="Salary" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolesOfUs" Association="Self.FK_RolesOfUs">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Roles" EntitySet="Roles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users" Association="Self.FK_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Regestration" EntitySet="Regestration" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

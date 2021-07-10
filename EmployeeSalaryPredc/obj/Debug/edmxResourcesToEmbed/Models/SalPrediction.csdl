@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SalaryPredictionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Driver">
+    <Key>
+      <PropertyRef Name="DriverId" />
+    </Key>
+    <Property Name="DriverId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DriverName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Vechiles" Relationship="Self.FK_Driver" FromRole="Driver" ToRole="Vechile" />
+  </EntityType>
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="AddressId" />
+    </Key>
+    <Property Name="AddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeId" Type="Int32" />
+    <Property Name="Address1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="State" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PinCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Vechiles" Relationship="Self.FK_Address" FromRole="Address" ToRole="Vechile" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Employee" FromRole="Address" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmpId" />
+    </Key>
+    <Property Name="EmpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BirthDate" Type="DateTime" Precision="0" />
+    <Property Name="HireDate" Type="DateTime" Precision="0" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="MaritalStatus" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Addresses" Relationship="Self.FK_Employee" FromRole="Employee" ToRole="Address" />
+    <NavigationProperty Name="Vechiles" Relationship="Self.FK_Emp" FromRole="Employee" ToRole="Vechile" />
+    <NavigationProperty Name="Salaries" Relationship="Self.FK_Employees" FromRole="Employee" ToRole="Salary" />
+  </EntityType>
+  <EntityType Name="Salary">
+    <Key>
+      <PropertyRef Name="SalaryId" />
+    </Key>
+    <Property Name="SalaryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeId" Type="Int32" />
+    <Property Name="BasicSalary" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="HRA" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="DA" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Travel" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Employees" FromRole="Salary" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Vechile">
+    <Key>
+      <PropertyRef Name="VechileId" />
+    </Key>
+    <Property Name="VechileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeId" Type="Int32" />
+    <Property Name="AddressId" Type="Int32" />
+    <Property Name="DriverId" Type="Int32" />
+    <Property Name="VechileName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="VechileRoute" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="VechileNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Capacity" Type="Int32" />
+    <NavigationProperty Name="Driver" Relationship="Self.FK_Driver" FromRole="Vechile" ToRole="Driver" />
+    <NavigationProperty Name="Address" Relationship="Self.FK_Address" FromRole="Vechile" ToRole="Address" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Emp" FromRole="Vechile" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Regestration">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UsersId" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="550" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PassWord" Type="String" MaxLength="550" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ConformPassword" Type="String" MaxLength="550" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Users" FromRole="Regestration" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Role1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_RolesOfUs" FromRole="Roles" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Regestrations" Relationship="Self.FK_Users" FromRole="Users" ToRole="Regestration" />
+    <NavigationProperty Name="Roles" Relationship="Self.FK_RolesOfUs" FromRole="Users" ToRole="Roles" />
+  </EntityType>
+  <EntityType Name="EmployeeSal">
+    <Key>
+      <PropertyRef Name="EmployeeName" />
+    </Key>
+    <Property Name="EmployeeName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="total_salary" Type="Decimal" Precision="38" Scale="2" />
+  </EntityType>
+  <EntityType Name="EmpVech">
+    <Key>
+      <PropertyRef Name="EmpId" />
+      <PropertyRef Name="EmployeeName" />
+    </Key>
+    <Property Name="EmpId" Type="Int32" Nullable="false" />
+    <Property Name="EmployeeName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="VechileName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="VechileRoute" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DriverName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_Driver">
+    <End Role="Driver" Type="Self.Driver" Multiplicity="0..1" />
+    <End Role="Vechile" Type="Self.Vechile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Driver">
+        <PropertyRef Name="DriverId" />
+      </Principal>
+      <Dependent Role="Vechile">
+        <PropertyRef Name="DriverId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Address">
+    <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+    <End Role="Vechile" Type="Self.Vechile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="AddressId" />
+      </Principal>
+      <Dependent Role="Vechile">
+        <PropertyRef Name="AddressId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Address" Type="Self.Address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpId" />
+      </Principal>
+      <Dependent Role="Address">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Emp">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Vechile" Type="Self.Vechile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpId" />
+      </Principal>
+      <Dependent Role="Vechile">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employees">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Salary" Type="Self.Salary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpId" />
+      </Principal>
+      <Dependent Role="Salary">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Regestration" Type="Self.Regestration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Regestration">
+        <PropertyRef Name="UsersId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolesOfUs">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Roles" Type="Self.Role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Roles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PredictionEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Drivers" EntityType="Self.Driver" />
+    <EntitySet Name="Addresses" EntityType="Self.Address" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="Salaries" EntityType="Self.Salary" />
+    <EntitySet Name="Vechiles" EntityType="Self.Vechile" />
+    <EntitySet Name="Regestrations" EntityType="Self.Regestration" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="EmployeeSals" EntityType="Self.EmployeeSal" />
+    <EntitySet Name="EmpVeches" EntityType="Self.EmpVech" />
+    <AssociationSet Name="FK_Driver" Association="Self.FK_Driver">
+      <End Role="Driver" EntitySet="Drivers" />
+      <End Role="Vechile" EntitySet="Vechiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Address" Association="Self.FK_Address">
+      <End Role="Address" EntitySet="Addresses" />
+      <End Role="Vechile" EntitySet="Vechiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee" Association="Self.FK_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Address" EntitySet="Addresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Emp" Association="Self.FK_Emp">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Vechile" EntitySet="Vechiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employees" Association="Self.FK_Employees">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Salary" EntitySet="Salaries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users" Association="Self.FK_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Regestration" EntitySet="Regestrations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolesOfUs" Association="Self.FK_RolesOfUs">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Roles" EntitySet="Roles" />
+    </AssociationSet>
+    <FunctionImport Name="Crud">
+      <Parameter Name="EmpId" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeName" Mode="In" Type="String" />
+      <Parameter Name="BirthDate" Mode="In" Type="DateTime" />
+      <Parameter Name="HireDate" Mode="In" Type="DateTime" />
+      <Parameter Name="Gender" Mode="In" Type="String" />
+      <Parameter Name="MaritalStatus" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="PhoneNumber" Mode="In" Type="String" />
+      <Parameter Name="Choice" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Salary_predict">
+      <Parameter Name="EmpId" Mode="In" Type="Int32" />
+      <Parameter Name="Tax" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EmployeeStoreProcedure" EntitySet="Employees" ReturnType="Collection(SalaryPredictionModel.Employee)">
+      <Parameter Name="EmpId" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeName" Mode="In" Type="String" />
+      <Parameter Name="BirthDate" Mode="In" Type="DateTime" />
+      <Parameter Name="HireDate" Mode="In" Type="DateTime" />
+      <Parameter Name="Gender" Mode="In" Type="String" />
+      <Parameter Name="MaritalStatus" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="PhoneNumber" Mode="In" Type="String" />
+      <Parameter Name="Choice" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "ViewEmpAddress";
+}
+
+<h2>View Employee Address</h2>
+<a class="btn btn-success" style="margin-bottom:10px" onclick="PopupForm('@Url.Action("AddOrEdit","Address")')"><i class="fa fa-plus"></i> Add Emp Address</a>
+<table id="AddressTBL" class="table table-bordered table-responsive" style="width:100%">
+    <thead>
+        <tr>
+            <th>Employee Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Pin code</th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+
+@section scripts{
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script src="~/Scripts/CRUD.js"></script>
+}

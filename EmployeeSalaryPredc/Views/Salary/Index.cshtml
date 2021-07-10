@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<a class="btn btn-success" style="margin-bottom:10px" onclick="PopupForm('@Url.Action("AddOrEdit","Salary")')"><i class="fa fa-plus"></i> Add Emp Salary</a>
+<table id="SalaryTBL" class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Employee Name</th>
+            <th>Basic Salary</th>
+            <th>DA</th>
+            <th>HRA</th>
+            <th>Travel</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+
+@section scripts{
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script src="~/Scripts/CRUD.js"></script>
+}
