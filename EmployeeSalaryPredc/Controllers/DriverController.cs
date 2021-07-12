@@ -8,9 +8,10 @@ using EmployeeSalaryPredc.Models;
 
 namespace EmployeeSalaryPredc.Controllers
 {
+    [Authorize]
     public class DriverController : Controller
     {
-        
+        [Authorize(Roles = "Admin,HR")]
         // GET: Driver
         public ActionResult Index()
         {
@@ -18,6 +19,7 @@ namespace EmployeeSalaryPredc.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,HR")]
         public ActionResult GetDriver()
         {
             try
@@ -40,6 +42,7 @@ namespace EmployeeSalaryPredc.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,HR")]
         public ActionResult AddOrEdit(int id = 0)
         {
             if(id == 0)
@@ -53,6 +56,7 @@ namespace EmployeeSalaryPredc.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,HR")]
         public ActionResult AddOrEdit(Driver div)
         {
             using (PredictionEntities PE = new PredictionEntities())
@@ -73,6 +77,7 @@ namespace EmployeeSalaryPredc.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,HR")]
         public ActionResult RemoveRecord(int id = 0)
         {
             using (PredictionEntities PE = new PredictionEntities())

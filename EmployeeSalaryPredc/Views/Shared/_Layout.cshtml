@@ -23,14 +23,7 @@
                 @Html.ActionLink("Surya's Company", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Employee", "Index", "Employee")</li>
-                    <li>@Html.ActionLink("Driver", "Index", "Driver")</li>
-                    <li>@Html.ActionLink("Salaries", "Index", "Salary")</li>
-                    <li>@Html.ActionLink("Address", "ViewEmpAddress", "Address")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+                @Html.Partial("_LoginAndLogout")
             </div>
         </div>
     </div>

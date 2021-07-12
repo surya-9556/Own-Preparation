@@ -8,17 +8,19 @@ using EmployeeSalaryPredc.Models;
 
 namespace EmployeeSalaryPredc.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class EmployeeController : Controller
     {
         PredictionEntities PE = new PredictionEntities();
         // GET: Employee
+        [Authorize(Roles = "Admin, User, HR, Finance, TeamLead")]
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, User, HR, Finance, TeamLead, Manager")]
         public ActionResult GetEmp()
         {
             var Emp = (from i in PE.Employees
@@ -37,6 +39,7 @@ namespace EmployeeSalaryPredc.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, HR")]
         public ActionResult AddOrEdit(int id = 0)
         {
             if(id == 0)
@@ -49,6 +52,7 @@ namespace EmployeeSalaryPredc.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, HR")]
         public ActionResult AddOrEdit(Employee Emp)
         {
             if(Emp.EmpId == 0)
@@ -66,6 +70,7 @@ namespace EmployeeSalaryPredc.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,HR")]
         public ActionResult RemoveEmp(int id = 0)
         {
             var removeEmp = PE.Employees.Where(i => i.EmpId == id).FirstOrDefault();

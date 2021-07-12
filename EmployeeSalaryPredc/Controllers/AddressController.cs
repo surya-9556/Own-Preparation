@@ -8,9 +8,11 @@ using EmployeeSalaryPredc.Models;
 
 namespace EmployeeSalaryPredc.Controllers
 {
+    [Authorize]
     public class AddressController : Controller
     {
         private PredictionEntities PE = new PredictionEntities();
+        [Authorize(Roles = "Admin,HR")]
         // GET: Address
         public ActionResult ViewEmpAddress()
         {
@@ -18,6 +20,7 @@ namespace EmployeeSalaryPredc.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,HR")]
         public ActionResult GetEmpAddr()
         {
             var addr = (from i in PE.Addresses
@@ -35,41 +38,47 @@ namespace EmployeeSalaryPredc.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Admin,HR")]
         public ActionResult AddOrEdit(int id = 0)
         {
             if (id == 0)
             {
-                ViewBag.Addr = new SelectList(PE.Employees, "EmpId", "EmployeeName");
-                return View(new Address());
+                ViewBag.EmployeeId = new SelectList(PE.Employees, "EmpId", "EmployeeName");
+                return View();
             }
             else
             {
                 var edit = PE.Addresses.Where(i => i.AddressId == id).FirstOrDefault();
-                ViewBag.Addr = new SelectList(PE.Employees, "EmpId", "EmployeeName");
+                ViewBag.EmployeeId = new SelectList(PE.Employees, "EmpId", "EmployeeName",edit.EmployeeId);
                 return View(edit);
             }
         }
 
         [HttpPost]
-        public ActionResult AddOrEdit(Address addr)
+        [Authorize(Roles = "Admin,HR")]
+        public ActionResult AddOrEdit(Address add)
         {
-            if (addr.AddressId == 0)
+            using (PredictionEntities PE = new PredictionEntities())
             {
-                PE.Addresses.Add(addr);
-                PE.SaveChanges();
-                ViewBag.Addr = new SelectList(PE.Employees, "EmpId", "EmployeeName", addr.EmployeeId);
-                return Json(new { success = true, message = "Saved successfully" }, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                PE.Entry(addr).State = EntityState.Modified;
-                PE.SaveChanges();
-                ViewBag.Addr = new SelectList(PE.Employees, "EmpId", "EmployeeName", addr.EmployeeId);
-                return Json(new { success = true, message = "Updated successfully" }, JsonRequestBehavior.AllowGet);
+                if (add.AddressId == 0)
+                {
+                    PE.Addresses.Add(add);
+                    PE.SaveChanges();
+                    ViewBag.EmployeeId = new SelectList(PE.Employees, "EmpId", "EmployeeName", add.EmployeeId);
+                    return Json(new { success = true, message = "Saved successfully" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    PE.Entry(add).State = EntityState.Modified;
+                    PE.SaveChanges();
+                    ViewBag.EmployeeId = new SelectList(PE.Employees, "EmpId", "EmployeeName", add.EmployeeId);
+                    return Json(new { success = true, message = "Updated successfully" }, JsonRequestBehavior.AllowGet);
+                }
             }
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,HR")]
         public ActionResult RemAddr(int id = 0)
         {
             var remove = PE.Addresses.Where(i => i.AddressId == id).FirstOrDefault();

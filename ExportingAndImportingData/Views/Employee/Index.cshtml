@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ExportingAndImportingData.Models.Employee>
+@{
+    ViewBag.Title = "Index";
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(Model => Model.EmployeeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.BirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.HireDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.MaritalStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.PhoneNumber)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(ModelItem => item.EmployeeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(ModelItem => item.BirthDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(ModelItem => item.HireDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(ModelItem => item.Gender)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(ModelItem => item.MaritalStatus)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(ModelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(ModelItem => item.PhoneNumber)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<a href="@Url.Action("ExportingToExcel","Employee")" class="btn btn-default">Export to excel</a>

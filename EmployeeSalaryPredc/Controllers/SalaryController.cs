@@ -8,9 +8,11 @@ using EmployeeSalaryPredc.Models;
 
 namespace EmployeeSalaryPredc.Controllers
 {
+    [Authorize]
     public class SalaryController : Controller
     {
         private PredictionEntities PE = new PredictionEntities();
+        [Authorize(Roles ="Finance")]
         // GET: Salary
         public ActionResult Index()
         {
@@ -18,6 +20,7 @@ namespace EmployeeSalaryPredc.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Finance")]
         public ActionResult GetEmpSal()
         {
             var salPre = (from i in PE.Salaries
@@ -35,6 +38,7 @@ namespace EmployeeSalaryPredc.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Finance")]
         public ActionResult AddOrEdit(int id = 0)
         {
             if(id == 0)
@@ -44,13 +48,14 @@ namespace EmployeeSalaryPredc.Controllers
             }
             else
             {
-                var remove = PE.Salaries.Where(i => i.SalaryId == id).FirstOrDefault();
+                var sal = PE.Salaries.Where(i => i.SalaryId == id).FirstOrDefault();
                 ViewBag.Salary = new SelectList(PE.Employees, "EmpId", "EmployeeName");
-                return View(remove);
+                return View(sal);
             }
         }
 
         [HttpPost]
+        [Authorize(Roles = "Finance")]
         public ActionResult AddOrEdit(Salary sal)
         {
             if(sal.SalaryId == 0)
@@ -70,6 +75,7 @@ namespace EmployeeSalaryPredc.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Finance")]
         public ActionResult RemSal(int id = 0)
         {
             var remove = PE.Salaries.Where(i => i.SalaryId == id).FirstOrDefault();

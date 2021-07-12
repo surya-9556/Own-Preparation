@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Import";
+}
+
+<h2>Import</h2>
+<br />
+<br />
+@using (Html.BeginForm("Upload", "Importing", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <table>
+        <tr>
+            <td> File: </td>
+            <td> <input type="file" name="UploadedFile" /> </td>
+        </tr>
+        <tr>
+            <td colspan="2"> <input type="submit" name="Submit" value="Submit" /> </td>
+        </tr>
+    </table>
+}
+<br />
+<br />
+<table class="table table-bordered" id="LinkTBL" style="width:100%">
+    <thead>
+        <tr>
+            <th>Sno</th>
+            <th>Name</th>
+            <th>Link</th>
+        </tr>
+    </thead>
+</table>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+
+@section scripts{
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#LinkTBL").DataTable({
+                "ajax": {
+                    "type": "POST",
+                    "url": "/Importing/GetLink",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "Sno" },
+                    { "data": "Name" },
+                    { "data": "Link" }
+                ],
+            })
+        })
+    </script>
+
+}

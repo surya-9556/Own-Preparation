@@ -4,8 +4,10 @@
 }
 
 <h2>Employee Details</h2>
-
-<a class="btn btn-success" style="margin-bottom:10px" onclick="PopupForm('@Url.Action("AddOrEdit","Employee")')"><i class="fa fa-plus"></i> Add New Employee</a>
+@if(User.IsInRole("HR")|| User.IsInRole("Admin"))
+{
+    <a class="btn btn-success" style="margin-bottom:10px" onclick="PopupForm('@Url.Action("AddOrEdit","Employee")')"><i class="fa fa-plus"></i> Add New Employee</a>
+}
 <table id="EmployeeTBL" class="table table-bordered table-striped">
     <thead>
         <tr>

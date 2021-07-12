@@ -134,6 +134,7 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SalaryController.cs" />
+    <Compile Include="Controllers\VechileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -183,6 +184,7 @@
       <DependentUpon>SalPrediction.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebRolesProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -204,6 +206,7 @@
       <DependentUpon>SalPrediction.edmx</DependentUpon>
       <LastGenOutput>SalPrediction.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\Address.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\SalPrediction.edmx">
@@ -215,6 +218,7 @@
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\CRUD.js" />
+    <Content Include="Scripts\Driver.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -227,6 +231,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\notify.min.js" />
+    <Content Include="Scripts\Salary.js" />
+    <Content Include="Scripts\Vechile.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -249,10 +255,13 @@
     <Content Include="Views\Salary\AddOrEdit.cshtml" />
     <Content Include="Views\Address\ViewEmpAddress.cshtml" />
     <Content Include="Views\Address\AddOrEdit.cshtml" />
+    <Content Include="Views\Vechile\ViewVech.cshtml" />
+    <Content Include="Views\Vechile\AddOrEdit.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\_LoginAndLogout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
